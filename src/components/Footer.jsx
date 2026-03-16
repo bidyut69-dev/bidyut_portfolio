@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Github, Twitter, Terminal, Heart } from 'lucide-react'
+import { Github, Twitter, Heart } from 'lucide-react'
 
 const NAV_LINKS = [
   { to: '/',         label: 'Home'     },
@@ -13,8 +13,8 @@ const NAV_LINKS = [
 ]
 
 const SOCIAL = [
-  { icon: Github,  href: 'https://github.com/bidyut69-dev',   label: 'GitHub'  },
-  { icon: Twitter, href: '', label: 'Twitter' },
+  { icon: Github,  href: 'https://github.com/your-github',   label: 'GitHub'  },
+  { icon: Twitter, href: 'https://twitter.com/your-twitter', label: 'Twitter' },
 ]
 
 export default function Footer() {
@@ -26,14 +26,14 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
 
           {/* Brand */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-cyber-cyan/10 border border-cyber-cyan/30">
-              <Terminal size={15} className="text-cyber-cyan" />
-            </div>
-            <div>
-              <p className="font-display font-bold text-white text-sm tracking-widest uppercase">SKY</p>
-              <p className="font-mono text-[10px] text-cyber-muted">Cybersecurity & Python Dev</p>
-            </div>
+          <div className="flex items-center">
+            <img
+              src="/logo.svg"
+              alt="SKY Logo"
+              width={120}
+              height={30}
+              className="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity"
+            />
           </div>
 
           {/* Nav links */}

@@ -10,7 +10,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Menu, X, Terminal, Github, Twitter } from 'lucide-react'
+import { Menu, X, Github, Twitter } from 'lucide-react'
 
 // ── Navigation links ─────────────────────────────────────────────────────────
 // Edit this array to add, remove, or rename links.
@@ -89,31 +89,22 @@ export default function Navbar() {
           {/* ── Logo ─────────────────────────────────────────────────────── */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 group"
+            className="flex items-center group"
             onClick={closeMobile}
           >
-            {/* Icon with neon glow on hover */}
-            <div className="
-              w-8 h-8 rounded-lg flex items-center justify-center
-              bg-cyber-cyan/10 border border-cyber-cyan/30
-              group-hover:bg-cyber-cyan/20 group-hover:border-cyber-cyan/60
-              group-hover:shadow-neon-cyan
-              transition-all duration-300
-            ">
-              <Terminal size={15} className="text-cyber-cyan" />
-            </div>
-
-            <div className="flex flex-col leading-none">
-              {/* Your name/brand — change "SKY" to your name */}
-              <span className="font-display font-bold text-white text-sm tracking-widest uppercase">
-                SKY
-              </span>
-              {/* Status indicator row */}
-              <span className="flex items-center gap-1.5 mt-0.5">
-                <span className="dot-online" />
-                <span className="font-mono text-[10px] text-cyber-muted">available for work</span>
-              </span>
-            </div>
+            {/* SVG logo — hover pe subtle glow aata hai */}
+            <img
+              src="/logo.svg"
+              alt="SKY Logo"
+              width={130}
+              height={32}
+              className="
+                h-8 w-auto
+                opacity-90 group-hover:opacity-100
+                transition-all duration-300
+                group-hover:drop-shadow-[0_0_8px_rgba(0,245,212,0.7)]
+              "
+            />
           </Link>
 
           {/* ── Desktop Navigation Links ──────────────────────────────────── */}
