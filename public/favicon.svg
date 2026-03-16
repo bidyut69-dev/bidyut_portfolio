@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="7" fill="#08080f"/>
+  <!-- Cyan border -->
+  <rect x="1" y="1" width="30" height="30" rx="6.5" fill="none" stroke="#00f5d4" stroke-width="1.5" opacity="0.8"/>
+  <!-- Top dots (window chrome) -->
+  <circle cx="6.5"  cy="7"  r="1.5" fill="#ff2d78" opacity="0.9"/>
+  <circle cx="11"   cy="7"  r="1.5" fill="#ffd60a" opacity="0.9"/>
+  <circle cx="15.5" cy="7"  r="1.5" fill="#00f5d4" opacity="0.9"/>
+  <!-- Divider line -->
+  <line x1="1" y1="11" x2="31" y2="11" stroke="#00f5d4" stroke-width="0.5" opacity="0.3"/>
+  <!-- >_ terminal prompt -->
+  <text x="5" y="25" font-family="monospace" font-size="13" font-weight="700" fill="#00f5d4">&gt;_</text>
+</svg>
