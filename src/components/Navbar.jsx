@@ -15,10 +15,10 @@ import { Menu, X, Terminal, Github, Twitter } from 'lucide-react'
 // ── Navigation links ─────────────────────────────────────────────────────────
 // Edit this array to add, remove, or rename links.
 const LINKS = [
-  { to: '/',         label: 'Home'     },
-  { to: '/#about',   label: 'About'    },
-  { to: '/projects', label: 'Projects' },
-  { to: '/blog',     label: 'Blog'     },
+  { to: '/',         label: 'Home',  isHash: false },
+  { to: '/#about',   label: 'About', isHash: true  },
+  { to: '/projects', label: 'Projects', isHash: false },
+  { to: '/blog',     label: 'Blog',  isHash: false },
 ]
 
 // ── Social links ──────────────────────────────────────────────────────────────
@@ -92,34 +92,44 @@ export default function Navbar() {
 
           {/* ── Desktop Navigation Links ──────────────────────────────────── */}
           <ul className="hidden md:flex items-center gap-1">
-            {LINKS.map(({ to, label }) => (
+            {LINKS.map(({ to, label, isHash }) => (
               <li key={to}>
-                <NavLink
-                  to={to}
-                  end={to === '/'} // `end` prevents "/" matching all paths
-                  className={({ isActive }) => `
-                    relative font-mono text-sm px-4 py-2 rounded-lg
-                    transition-all duration-200
-                    ${isActive
-                      ? 'text-cyber-cyan'
-                      : 'text-cyber-muted hover:text-white hover:bg-white/5'
-                    }
-                  `}
-                >
-                  {({ isActive }) => (
-                    <>
-                      {label}
-                      {/* Active underline indicator */}
-                      {isActive && (
-                        <span className="
-                          absolute bottom-0.5 left-1/2 -translate-x-1/2
-                          w-4 h-px bg-cyber-cyan rounded-full
-                          shadow-[0_0_8px_#00f5d4]
-                        " />
-                      )}
-                    </>
-                  )}
-                </NavLink>
+                {isHash ? (
+                  // Plain <a> for same-page hash links — NavLink would
+                  // incorrectly mark these as active on matching routes
+                  <a
+                    href={to}
+                    className="relative font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200 text-cyber-muted hover:text-white hover:bg-white/5"
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <NavLink
+                    to={to}
+                    end={to === '/'}
+                    className={({ isActive }) => `
+                      relative font-mono text-sm px-4 py-2 rounded-lg
+                      transition-all duration-200
+                      ${isActive
+                        ? 'text-cyber-cyan'
+                        : 'text-cyber-muted hover:text-white hover:bg-white/5'
+                      }
+                    `}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {label}
+                        {isActive && (
+                          <span className="
+                            absolute bottom-0.5 left-1/2 -translate-x-1/2
+                            w-4 h-px bg-cyber-cyan rounded-full
+                            shadow-[0_0_8px_#00f5d4]
+                          " />
+                        )}
+                      </>
+                    )}
+                  </NavLink>
+                )}
               </li>
             ))}
           </ul>
@@ -185,31 +195,42 @@ export default function Navbar() {
         `}
       >
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-          {LINKS.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === '/'}
-              onClick={closeMobile}
-              className={({ isActive }) => `
-                font-mono text-sm px-4 py-3 rounded-lg
-                flex items-center gap-3
-                transition-all duration-200
-                ${isActive
-                  ? 'text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20'
-                  : 'text-cyber-muted hover:text-white hover:bg-white/5'
-                }
-              `}
-            >
-              {({ isActive }) => (
-                <>
-                  {/* Small indicator dot for active mobile link */}
-                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-cyber-cyan shadow-[0_0_6px_#00f5d4]' : 'bg-cyber-border'}`} />
+          {LINKS.map(({ to, label, isHash }) => (
+              isHash ? (
+                <a
+                  key={to}
+                  href={to}
+                  onClick={closeMobile}
+                  className="font-mono text-sm px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-200 text-cyber-muted hover:text-white hover:bg-white/5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyber-border" />
                   {label}
-                </>
-              )}
-            </NavLink>
-          ))}
+                </a>
+              ) : (
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={to === '/'}
+                  onClick={closeMobile}
+                  className={({ isActive }) => `
+                    font-mono text-sm px-4 py-3 rounded-lg
+                    flex items-center gap-3
+                    transition-all duration-200
+                    ${isActive
+                      ? 'text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20'
+                      : 'text-cyber-muted hover:text-white hover:bg-white/5'
+                    }
+                  `}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-cyber-cyan shadow-[0_0_6px_#00f5d4]' : 'bg-cyber-border'}`} />
+                      {label}
+                    </>
+                  )}
+                </NavLink>
+              )
+            ))}
 
           {/* Social + CTA row in mobile menu */}
           <div className="mt-3 pt-3 border-t border-cyber-border flex items-center gap-3">
