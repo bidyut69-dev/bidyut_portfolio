@@ -9,6 +9,7 @@
 
 import React, { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import profilePhoto from '../assets/sky.jpg'
 import {
   User, MapPin, Calendar, Coffee, Terminal,
   BookOpen, Music, Gamepad2, ChevronRight
@@ -17,7 +18,7 @@ import {
 // ── Edit these ────────────────────────────────────────────────────────────────
 
 // Replace with your photo URL. For local file: put image in /public/ and use '/your-photo.jpg'
-const PROFILE_PHOTO = '/public/sky.jpg' // Set to your image URL e.g. '/me.jpg' or 'https://...'
+const PROFILE_PHOTO = profilePhoto // Set to your image URL e.g. '/me.jpg' or 'https://...'
 
 // Short bio — each string is one paragraph
 const BIO_LINES = [
