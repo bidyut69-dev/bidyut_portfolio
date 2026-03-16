@@ -16,7 +16,7 @@ import { Menu, X, Terminal, Github, Twitter } from 'lucide-react'
 // Edit this array to add, remove, or rename links.
 const LINKS = [
   { to: '/',         label: 'Home',  isHash: false },
-  { to: '/#about',   label: 'About', isHash: true  },
+  { to: '/about',   label: 'About', isHash: false  },
   { to: '/projects', label: 'Projects', isHash: false },
   { to: '/blog',     label: 'Blog',  isHash: false },
 ]
