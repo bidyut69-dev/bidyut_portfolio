@@ -17,7 +17,7 @@ import {
 // ── Edit these ────────────────────────────────────────────────────────────────
 
 // Replace with your photo URL. For local file: put image in /public/ and use '/your-photo.jpg'
-const PROFILE_PHOTO = '/public/me.jpeg' // Set to your image URL e.g. '/me.jpg' or 'https://...'
+const PROFILE_PHOTO = '/public/sky.jpg' // Set to your image URL e.g. '/me.jpg' or 'https://...'
 
 // Short bio — each string is one paragraph
 const BIO_LINES = [
