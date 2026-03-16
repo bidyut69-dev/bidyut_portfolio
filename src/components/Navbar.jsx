@@ -16,7 +16,7 @@ import { Menu, X, Terminal, Github, Twitter } from 'lucide-react'
 // Edit this array to add, remove, or rename links.
 const LINKS = [
   { to: '/',         label: 'Home',  isHash: false },
-  { to: '/#about',   label: 'About', isHash: false  },
+  { to: '/#about',   label: 'About', isHash: true  },
   { to: '/projects', label: 'Projects', isHash: false },
   { to: '/blog',     label: 'Blog',  isHash: false },
 ]
@@ -24,8 +24,8 @@ const LINKS = [
 // ── Social links ──────────────────────────────────────────────────────────────
 // Replace href values with your own profiles.
 const SOCIAL = [
-  { icon: Github,  href: 'https://github.com/your-github',   label: 'GitHub'  },
-  { icon: Twitter, href: 'https://twitter.com/your-twitter', label: 'Twitter' },
+  { icon: Github,  href: 'https://github.com/bidyut69-dev',   label: 'GitHub'  },
+  { icon: Twitter, href: '', label: 'Twitter' },
 ]
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
