@@ -10,6 +10,7 @@
 
 import React from 'react'
 import Hero     from '../components/Hero.jsx'
+import About    from '../components/About.jsx'
 import Projects from '../components/Projects.jsx'
 import Blog     from '../components/Blog.jsx'
 
@@ -19,7 +20,11 @@ export default function HomePage() {
       {/* ── 1. Hero ──────────────────────────────────────────────────────── */}
       <Hero />
 
-      {/* Horizontal divider with glow */}
+      <div className="h-px max-w-6xl mx-auto bg-gradient-to-r from-transparent via-cyber-border to-transparent" />
+
+      {/* ── 2. About Me ───────────────────────────────────────────────────── */}
+      <About />
+
       <div className="h-px max-w-6xl mx-auto bg-gradient-to-r from-transparent via-cyber-border to-transparent" />
 
       {/* ── 2. Featured Projects ──────────────────────────────────────────── */}
