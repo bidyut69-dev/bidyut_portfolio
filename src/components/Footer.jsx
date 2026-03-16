@@ -13,8 +13,8 @@ const NAV_LINKS = [
 ]
 
 const SOCIAL = [
-  { icon: Github,  href: 'https://github.com/your-github',   label: 'GitHub'  },
-  { icon: Twitter, href: 'https://twitter.com/your-twitter', label: 'Twitter' },
+  { icon: Github,  href: 'https://github.com/bidyut69-dev',   label: 'GitHub'  },
+  { icon: Twitter, href: '', label: 'Twitter' },
 ]
 
 export default function Footer() {

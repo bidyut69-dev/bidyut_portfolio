@@ -245,7 +245,7 @@ export default function Hero() {
                 View Projects
               </a>
               <a
-                href="https://github.com/your-github"
+                href="https://github.com/bidyut69-dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost flex items-center gap-2"

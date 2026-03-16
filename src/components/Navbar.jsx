@@ -23,8 +23,8 @@ const LINKS = [
 // ── Social links ──────────────────────────────────────────────────────────────
 // Replace href values with your own profiles.
 const SOCIAL = [
-  { icon: Github,  href: 'https://github.com/your-github',   label: 'GitHub'  },
-  { icon: Twitter, href: 'https://twitter.com/your-twitter', label: 'Twitter' },
+  { icon: Github,  href: 'https://github.com/bidyut69-dev',   label: 'GitHub'  },
+  { icon: Twitter, href: '', label: 'Twitter' },
 ]
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
