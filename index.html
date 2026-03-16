@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Responsive viewport — critical for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── Primary SEO ──────────────────────────────────────────────────── -->
+    <title>SKY | Cybersecurity & Python Automation Engineer</title>
+    <meta name="description" content="Personal portfolio and tech blog of SKY — Cybersecurity engineer, Python automation developer, and OSINT tools builder. Explore projects, articles, and open-source work." />
+    <meta name="keywords"    content="cybersecurity, python automation, OSINT, ethical hacking, portfolio, tech blog, full-stack developer" />
+    <meta name="author"      content="SKY" />
+    <meta name="robots"      content="index, follow" />
+    <link rel="canonical"    href="https://your-domain.com" />
+
+    <!-- ── Open Graph (social sharing) ────────────────────────────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://your-domain.com" />
+    <meta property="og:title"       content="SKY | Cybersecurity & Python Automation" />
+    <meta property="og:description" content="Cybersecurity engineer and Python automation developer. Building OSINT tools, security scanners, and YouTube automation systems." />
+    <meta property="og:image"       content="https://your-domain.com/og-image.png" />
+
+    <!-- ── Twitter Card ────────────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="SKY | Cybersecurity & Python Automation" />
+    <meta name="twitter:description" content="Cybersecurity engineer and Python automation developer." />
+    <meta name="twitter:image"       content="https://your-domain.com/og-image.png" />
+
+    <!-- ── Critical inline CSS ───────────────────────────────────────────
+         Renders the correct background colour and system-font stack
+         INSTANTLY — before any JS or external CSS loads.
+         This prevents the white flash and keeps LCP fast.
+    ─────────────────────────────────────────────────────────────────────── -->
+    <style>
+      :root { color-scheme: dark; }
+      html, body {
+        margin: 0; padding: 0;
+        background-color: #08080f;
+        color: #c0c0d0;
+        /* System font stack as fallback while Google Fonts loads */
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      /* Prevent invisible text during font swap (matches font-display:swap) */
+      .font-display { font-family: system-ui, sans-serif; }
+    </style>
+
+    <!-- ── Favicon ─────────────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ── Google Fonts — non-blocking load pattern ──────────────────────
+         Step 1: preconnect so DNS+TLS is ready before the font request fires.
+         Step 2: load fonts as `media="print"` (non-render-blocking), then
+                 flip to `media="all"` via onload — avoids FOUC and 0 blocking.
+         Step 3: <noscript> fallback for users with JS disabled.
+         This pattern eliminates the Lighthouse "eliminate render-blocking
+         resources" warning for Google Fonts entirely.
+    ─────────────────────────────────────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Non-blocking font load: print → all trick -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for JS-disabled browsers -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
+
+    <!-- ── JSON-LD Structured Data (Google rich results) ───────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "SKY",
+      "url": "https://your-domain.com",
+      "jobTitle": "Cybersecurity & Python Automation Engineer",
+      "description": "Building OSINT tools, security automation, and YouTube automation pipelines.",
+      "sameAs": [
+        "https://github.com/your-github"
+      ]
+    }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

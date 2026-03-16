@@ -1,0 +1,240 @@
+/* ─────────────────────────────────────────────────────────
+   src/index.css  —  Global Styles + Tailwind Directives
+   ───────────────────────────────────────────────────────── */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Reset & Defaults ─────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    /* Prevent layout shift when scrollbar appears */
+    overflow-y: scroll;
+  }
+
+  body {
+    @apply bg-cyber-black text-cyber-text font-body;
+    /* Cyber grid background.
+       NOTE: background-attachment:fixed is intentionally REMOVED here.
+       It forces the browser to repaint the entire background layer on every
+       scroll frame because it's positioned relative to the viewport, not the
+       element. On mobile this tanks Lighthouse performance by 20-30 points.
+       The grid is achieved with a fixed pseudo-element instead (see below). */
+    background-image:
+      linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    /* background-attachment: scroll (default) — GPU-composited, no repaint */
+  }
+
+  /* Fixed grid overlay via ::before on html — GPU layer, zero scroll cost.
+     This achieves the same visual as background-attachment:fixed but without
+     the repaint penalty. Uses contain:strict to isolate the paint layer. */
+  html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 245, 212, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 212, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    contain: strict;
+    will-change: transform; /* promote to own compositor layer */
+  }
+
+  /* Custom scrollbar — keep it on-brand */
+  ::-webkit-scrollbar       { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0d0d1a; }
+  ::-webkit-scrollbar-thumb { background: #1a1a2e; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #00f5d44d; }
+
+  /* Firefox scrollbar */
+  * { scrollbar-width: thin; scrollbar-color: #1a1a2e #0d0d1a; }
+
+  /* Selection highlight */
+  ::selection { background: rgba(0, 245, 212, 0.25); color: #00f5d4; }
+}
+
+/* ── Reusable Component Classes ────────────────────────── */
+@layer components {
+
+  /* Neon-bordered card */
+  .card-cyber {
+    @apply bg-cyber-dark border border-cyber-border rounded-xl shadow-card;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    /* Use will-change only on hover to avoid promoting all cards at once */
+    transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+  }
+  .card-cyber:hover {
+    @apply border-cyber-cyan/30 shadow-neon-cyan;
+    transform: translateY(-4px);
+    will-change: transform;
+  }
+
+  /* Section title with neon underline */
+  .section-title {
+    @apply font-display font-bold text-white relative inline-block;
+  }
+  .section-title::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 w-12 h-0.5 bg-cyber-cyan rounded-full;
+  }
+
+  /* Terminal-style label */
+  .tag-cyber {
+    @apply font-mono text-xs px-2.5 py-1 rounded-md
+           bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/20;
+  }
+
+  /* Primary CTA button */
+  .btn-primary {
+    @apply relative font-mono font-medium text-sm px-6 py-3 rounded-lg
+           bg-cyber-cyan text-cyber-black overflow-hidden
+           transition-all duration-300;
+  }
+  .btn-primary:hover {
+    @apply shadow-neon-cyan;
+    filter: brightness(1.1);
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply font-mono font-medium text-sm px-6 py-3 rounded-lg
+           border border-cyber-cyan/40 text-cyber-cyan
+           transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply bg-cyber-cyan/10 border-cyber-cyan/70 shadow-neon-cyan;
+  }
+
+  /* Glowing dot indicator */
+  .dot-online {
+    @apply inline-block w-2 h-2 rounded-full bg-cyber-cyan;
+    box-shadow: 0 0 6px #00f5d4;
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+}
+
+/* ── Utility Overrides ─────────────────────────────────── */
+@layer utilities {
+  /* Text neon glow */
+  .text-glow-cyan   { text-shadow: 0 0 20px rgba(0, 245, 212, 0.6); }
+  .text-glow-purple { text-shadow: 0 0 20px rgba(177, 74, 237, 0.6); }
+
+  /* Animated gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #00f5d4 0%, #b14aed 50%, #ff2d78 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Scanline overlay for retro CRT effect */
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Noise texture overlay */
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
+
+    /* content-visibility:auto — tells the browser it can skip rendering
+       off-screen sections entirely until the user scrolls near them.
+       This is one of the highest-impact CSS performance properties for
+       long pages. containIntrinsicSize prevents layout shift when the
+       section is skipped (browser reserves this height for it). */
+    section#projects,
+    section#blog {
+      content-visibility: auto;
+      contain-intrinsic-size: 0 800px;
+    }
+
+/* ── Performance & Accessibility: reduced-motion ──────────
+   Lighthouse penalises animations that run during page load
+   when prefers-reduced-motion is set. This also benefits any
+   user on a low-power device that requests fewer animations.
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Compositor layer hints for animated elements ─────────
+   Tell the browser which elements will animate BEFORE they
+   do, so it can promote them to GPU layers early.
+   Use sparingly — too many promoted layers waste GPU memory.
+────────────────────────────────────────────────────────── */
+.animate-float        { will-change: transform; }
+.animate-scan-line    { will-change: transform; }
+.animate-fade-up      { will-change: opacity, transform; }
+
+/* Once the fade-up animation completes, remove will-change
+   so the GPU layer is released (saves memory on mobile). */
+.animate-fade-up[style*="animation-fill-mode"] { will-change: auto; }
+
+/* ── Markdown Prose Styles (for Blog posts) ────────────── */
+.prose-cyber {
+  color: #c0c0d0;
+  line-height: 1.8;
+}
+.prose-cyber h1, .prose-cyber h2, .prose-cyber h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-cyber h1 { font-size: 2rem; }
+.prose-cyber h2 { font-size: 1.5rem; border-bottom: 1px solid #1a1a2e; padding-bottom: 0.5rem; }
+.prose-cyber h3 { font-size: 1.2rem; color: #00f5d4; }
+.prose-cyber p  { margin-bottom: 1.25rem; }
+.prose-cyber a  { color: #00f5d4; text-decoration: underline; text-decoration-color: rgba(0,245,212,0.4); }
+.prose-cyber a:hover { text-decoration-color: #00f5d4; }
+.prose-cyber code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: rgba(0, 245, 212, 0.1);
+  color: #00f5d4;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 245, 212, 0.2);
+}
+.prose-cyber pre         { background: #0d0d1a !important; border-radius: 0.75rem; border: 1px solid #1a1a2e; margin: 1.5rem 0; }
+.prose-cyber pre code    { background: none; border: none; padding: 0; color: inherit; }
+.prose-cyber blockquote  { border-left: 3px solid #00f5d4; padding-left: 1rem; color: #4a4a6a; font-style: italic; }
+.prose-cyber ul, .prose-cyber ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.prose-cyber li          { margin-bottom: 0.5rem; }
+.prose-cyber li::marker  { color: #00f5d4; }
+.prose-cyber hr          { border-color: #1a1a2e; margin: 2rem 0; }
+.prose-cyber img         { border-radius: 0.75rem; border: 1px solid #1a1a2e; }
+.prose-cyber table       { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; }
+.prose-cyber th          { background: rgba(0,245,212,0.08); color: #00f5d4; text-align: left; padding: 0.5rem 1rem; border: 1px solid #1a1a2e; }
+.prose-cyber td          { padding: 0.5rem 1rem; border: 1px solid #1a1a2e; }
