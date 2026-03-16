@@ -15,31 +15,57 @@ import { Menu, X, Terminal, Github, Twitter } from 'lucide-react'
 // ── Navigation links ─────────────────────────────────────────────────────────
 // Edit this array to add, remove, or rename links.
 const LINKS = [
-  { to: '/',         label: 'Home',  isHash: false },
-  { to: '/#about',   label: 'About', isHash: true  },
+  { to: '/',         label: 'Home',     isHash: false },
+  { to: '/#about',   label: 'About',    isHash: true,  sectionId: 'about' },
   { to: '/projects', label: 'Projects', isHash: false },
-  { to: '/blog',     label: 'Blog',  isHash: false },
+  { to: '/blog',     label: 'Blog',     isHash: false },
 ]
 
 // ── Social links ──────────────────────────────────────────────────────────────
 // Replace href values with your own profiles.
 const SOCIAL = [
-  { icon: Github,  href: 'https://github.com/bidyut69-dev',   label: 'GitHub'  },
-  { icon: Twitter, href: '', label: 'Twitter' },
+  { icon: Github,  href: 'https://github.com/your-github',   label: 'GitHub'  },
+  { icon: Twitter, href: 'https://twitter.com/your-twitter', label: 'Twitter' },
 ]
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
 export default function Navbar() {
-  // Track whether the page has been scrolled past the hero top
-  const [scrolled,     setScrolled]     = useState(false)
-  // Toggle mobile menu open/closed
-  const [mobileOpen,   setMobileOpen]   = useState(false)
+  const [scrolled,       setScrolled]       = useState(false)
+  const [mobileOpen,     setMobileOpen]     = useState(false)
+  // Tracks which hash section is currently visible in viewport
+  const [activeSection,  setActiveSection]  = useState('')
 
-  // ── Scroll listener — updates `scrolled` state ───────────────────────────
+  // ── Scroll listener ───────────────────────────────────────────────────────
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // ── IntersectionObserver — watches all hash sections ─────────────────────
+  // When a section (e.g. #about) enters the viewport, mark it as active.
+  // When it leaves, clear the active state so route-based links work normally.
+  useEffect(() => {
+    const sectionIds = LINKS
+      .filter(l => l.isHash && l.sectionId)
+      .map(l => l.sectionId)
+
+    const observers = sectionIds.map(id => {
+      const el = document.getElementById(id)
+      if (!el) return null
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id)
+          else setActiveSection(prev => prev === id ? '' : prev)
+        },
+        { threshold: 0.4 } // section must be 40% visible to activate
+      )
+      observer.observe(el)
+      return observer
+    }).filter(Boolean)
+
+    return () => observers.forEach(o => o.disconnect())
   }, [])
 
   // Close mobile menu on route change (handled by NavLink itself via onClick)
@@ -92,16 +118,26 @@ export default function Navbar() {
 
           {/* ── Desktop Navigation Links ──────────────────────────────────── */}
           <ul className="hidden md:flex items-center gap-1">
-            {LINKS.map(({ to, label, isHash }) => (
+            {LINKS.map(({ to, label, isHash, sectionId }) => (
               <li key={to}>
                 {isHash ? (
-                  // Plain <a> for same-page hash links — NavLink would
-                  // incorrectly mark these as active on matching routes
+                  // Hash link — active state driven by IntersectionObserver
                   <a
                     href={to}
-                    className="relative font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200 text-cyber-muted hover:text-white hover:bg-white/5"
+                    className={`
+                      relative font-mono text-sm px-4 py-2 rounded-lg
+                      transition-all duration-200
+                      ${activeSection === sectionId
+                        ? 'text-cyber-cyan'
+                        : 'text-cyber-muted hover:text-white hover:bg-white/5'
+                      }
+                    `}
                   >
                     {label}
+                    {/* Active underline — same as NavLink active indicator */}
+                    {activeSection === sectionId && (
+                      <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-px bg-cyber-cyan rounded-full shadow-[0_0_8px_#00f5d4]" />
+                    )}
                   </a>
                 ) : (
                   <NavLink
@@ -195,15 +231,22 @@ export default function Navbar() {
         `}
       >
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-          {LINKS.map(({ to, label, isHash }) => (
+          {LINKS.map(({ to, label, isHash, sectionId }) => (
               isHash ? (
                 <a
                   key={to}
                   href={to}
                   onClick={closeMobile}
-                  className="font-mono text-sm px-4 py-3 rounded-lg flex items-center gap-3 transition-all duration-200 text-cyber-muted hover:text-white hover:bg-white/5"
+                  className={`
+                    font-mono text-sm px-4 py-3 rounded-lg flex items-center gap-3
+                    transition-all duration-200
+                    ${activeSection === sectionId
+                      ? 'text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20'
+                      : 'text-cyber-muted hover:text-white hover:bg-white/5'
+                    }
+                  `}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyber-border" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${activeSection === sectionId ? 'bg-cyber-cyan shadow-[0_0_6px_#00f5d4]' : 'bg-cyber-border'}`} />
                   {label}
                 </a>
               ) : (
