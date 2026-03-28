@@ -25,6 +25,7 @@ const HomePage    = lazy(() => import('./pages/HomePage.jsx'))
 const BlogPage    = lazy(() => import('./pages/BlogPage.jsx'))
 const PostPage    = lazy(() => import('./pages/PostPage.jsx'))
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage.jsx'))
+const QuickLegalPage = lazy(() => import('./pages/QuickLegalPage.jsx'))
 
 // ── Loading fallback shown while a lazy page chunk loads ─────────────────────
 function PageLoader() {
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/blog"       element={<BlogPage />}     />
             <Route path="/blog/:slug" element={<PostPage />}     />
             <Route path="/projects"   element={<ProjectsPage />} />
+            <Route path="/quick-legal" element={<QuickLegalPage />} />
 
             {/* 404 catch-all — replace with a proper NotFoundPage if desired */}
             <Route

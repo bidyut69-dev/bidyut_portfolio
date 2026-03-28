@@ -75,4 +75,17 @@ export const PROJECTS = [
     accent: 'yellow',
     icon: '[P]',
   },
+  {
+    id: 'quick-legal',
+    title: 'Quick-Legal',
+    description:
+      'AI-powered T&C analyzer -- paste any Terms & Conditions and get instant red flags, privacy score (1-10), and plain-English summary. Built with FastAPI + Google Gemini AI.',
+    tags: ['Python', 'FastAPI', 'React', 'Gemini AI', 'Full-Stack'],
+    status: 'complete',
+    github: 'https://github.com/bidyut69-dev/quick-legal',
+    demo: 'https://quick-legal-refxdf512-bidyut69-devs-projects.vercel.app/',  // ← apna actual URL daalo
+    featured: true,
+    accent: 'yellow',
+    icon: '[L]',
+},
 ]
